@@ -1,4 +1,11 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
 local function createSurfaceGui(player)
+	if player == LocalPlayer then
+		return 
+	end
+
 	local character = player.Character or player.CharacterAdded:Wait()
 	local humanoid = character:WaitForChild("Humanoid")
 	local rootPart = character:WaitForChild("Head")
@@ -41,10 +48,9 @@ local function createSurfaceGui(player)
 	end
 end
 
-for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
-	createSurfaceGui(player)
+while true do
+	for _, player in ipairs(Players:GetPlayers()) do
+		createSurfaceGui(player)
+	end
+	wait(3)
 end
-
-game:GetService("Players").PlayerAdded:Connect(function(player)
-	createSurfaceGui(player)
-end)
